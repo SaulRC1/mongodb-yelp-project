@@ -1,0 +1,12 @@
+.navigation_bar
+{
+    display: flex;
+    flex-direction: column;
+    background: rgba(0, 237, 100, 0.0);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(4.7px);
+    -webkit-backdrop-filter: blur(4.7px);
+    height: 100%;
+    width: 200px;
+    max-width: 200px;
+}

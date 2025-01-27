@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Proyecto MongoDB</title>
+    <link rel="icon" th:href="@{/images/mongodb_icon.svg}" type="image/svg+xml"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/general.css}"/>
+    <link rel="stylesheet" th:href="@{/css/components/navigation_bar.css}"/>
+    <link rel="stylesheet" th:href="@{/css/components/buttons.css}"/>
+</head>
+<body>
+    <div class="main-div">
+        <div th:insert="~{components/navigation_bar :: navigation_bar}"></div>
+        <div class="app-viewport">
+            
+            
+            <footer>
+                <p class="footer-text">&copy; 2025 - Saúl Rodríguez Naranjo | Máster en Big Data y Cloud Computing (UHU)
+            </footer>
+        </div>
+    </div>
+</body>
+</html>
+

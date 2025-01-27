@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8"/>
+        <title></title>
+    </head>
+    <body>
+        
+        <div class="business-card" th:fragment="business_card(business_name, city, state, address, postal_code, stars)">
+            <div class="business-card-main-content">
+                <img class="business-card-main-img" th:src="@{/images/business-icon.png}" alt="Business image" />
+                <div class="business-card-information-div">
+                    <p class="business-card-name-p" th:if="${business_name != null}" th:text="${business_name}"></p>
+                    <p class="business-card-info-p" th:if="${city != null && state == null}" th:text="${city}"></p>
+                    <p class="business-card-info-p" th:if="${city != null && state != null}" th:text="${city + ', ' + state}"></p>
+                    <p class="business-card-info-p" th:if="${city == null && state != null}" th:text="${state}"></p>
+                    <p class="business-card-info-p" th:if="${address != null && postal_code != null}" th:text="${address + ', ' + postal_code}"></p>
+                    <p class="business-card-info-p" th:if="${address != null && postal_code == null}" th:text="${address}"></p>
+                    <p class="business-card-info-p" th:if="${address == null && postal_code != null}" th:text="${postal_code}"></p>
+                </div>
+            </div>
+            <div class="business-card-footer-content">
+                <img class="business-card-img" th:src="@{/images/star.png}" alt="Star image"/>
+                <p class="business-card-star-rating-p" th:text="${stars}"></p>
+                <button class="business-card-see-more-button">Ver más</button>
+            </div>
+        </div>
+
+    </body>
+</html>
+

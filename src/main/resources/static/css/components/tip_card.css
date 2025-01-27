@@ -1,0 +1,85 @@
+.tip-card
+{
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.tip-card-header
+{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    background-color: wheat;
+    margin: 10px 10px 10px 0px;
+    border-radius: 10px;
+    width: fit-content;
+    padding: 0px 10px 0px 10px;
+}
+
+.tip-card-content
+{
+    background: whitesmoke;
+    margin-bottom: 10px;
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 10px;
+}
+
+.tip-card-img
+{
+    width: 50px;
+    height: auto;
+    margin: 15px;
+}
+
+.tip-card-content-section
+{
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 50px - 15px - 15px);
+    height: auto;
+}
+
+.tip-card-compliment-img
+{
+    height: 20px;
+    width: auto;
+}
+
+.tip-card-p
+{
+    font-weight: 600;
+}
+
+.tip-card-date
+{
+    font-style: italic;
+}
+
+.tip-compliment
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background-color: #FF6961;
+    border-radius: 20px;
+    padding: 5px 10px 5px 10px;
+}
+
+.tip-compliment p
+{
+    margin: 0;
+    color: white;
+}

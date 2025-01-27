@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8"/>
+        <title></title>
+    </head>
+    <body>
+        
+        <div class="tip-card" th:fragment="tip_card(author, business, text, compliment_count, date)">
+            <img class="tip-card-img" th:src="@{/images/tip.png}" alt="Tip image"/>
+            <div class="tip-card-content-section">
+                <div class="tip-card-header">
+                    <p class="tip-card-p" th:text="${'From: ' + author}"></p>
+                    <p class="tip-card-p" th:text="${'To: ' + business}"></p>
+                    <div class="tip-compliment">
+                        <img class="tip-card-compliment-img" th:src="@{/images/compliment.png}" alt="Compliments: "/>
+                        <p th:text="${compliment_count}"></p>
+                    </div>
+                    <p class="tip-card-date" th:text="${date}"></p>
+                </div>
+                <div class="tip-card-content">
+                    <p th:text="${text}"></p>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>
+
