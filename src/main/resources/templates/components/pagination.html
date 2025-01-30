@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8"/>
+        <title></title>
+    </head>
+    <body>
+        
+        <div class="pagination-menu" th:fragment="pagination_menu(current_page, page_count)">
+            <button onClick="moveToFirstPage()" class="pagination-button" >
+                <img th:src="@{/images/first_page_arrow.png}" />
+            </button>
+            <button onClick="moveBackwardsPage()" class="pagination-button" >
+                <img th:src="@{/images/backwards_arrow.png}" />
+            </button>
+            <p class="pagination-page-display" th:text="${current_page + ' / ' + page_count}">1 / 1000</p>
+            <button onClick="moveForwardPage()" class="pagination-button">
+                <img th:src="@{/images/forward_arrow.png}" />
+            </button>
+            <button onClick="moveToLastPage()" class="pagination-button">
+                <img th:src="@{/images/last_page_arrow.png}" />
+            </button>
+        </div>
+
+    </body>
+</html>
+

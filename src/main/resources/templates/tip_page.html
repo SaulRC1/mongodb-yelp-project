@@ -11,6 +11,7 @@
     <link rel="stylesheet" th:href="@{/css/components/navigation_bar.css}"/>
     <link rel="stylesheet" th:href="@{/css/components/buttons.css}"/>
     <link rel="stylesheet" th:href="@{/css/components/tip_card.css}"/>
+    <link rel="stylesheet" th:href="@{/css/components/pagination_menu.css}"/>
 </head>
 <body>
     <div class="main-div">
@@ -24,8 +25,12 @@
             <div class="standard-list-section">
                 <div th:each="tipData : ${tips}">
                     <div th:replace="~{components/tip_card :: tip_card(${tipData.tipAuthor}, ${tipData.tipBusiness}, 
-                         ${tipData.tip.text}, ${tipData.tip.complimentCount}, ${tipData.tip.date})}"></div>
+                         ${tipData.tip.text}, ${tipData.tip.complimentCount}, ${tipData.tip.date}, ${tipData.formattedDate})}"></div>
                 </div>
+            </div>
+            
+            <div class="standard-list-section-pagination-menu">
+                <div th:replace="~{components/pagination :: pagination_menu(${current_page}, ${page_count})}"></div>
             </div>
             
             <footer>
@@ -33,6 +38,8 @@
             </footer>
         </div>
     </div>
+    
+    <script th:src="@{/js/tip_page.js}"></script>
 </body>
 </html>
 

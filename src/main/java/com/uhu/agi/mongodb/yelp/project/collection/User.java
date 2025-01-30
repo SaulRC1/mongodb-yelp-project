@@ -2,6 +2,7 @@ package com.uhu.agi.mongodb.yelp.project.collection;
 
 import java.util.List;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceCreator;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -89,6 +90,7 @@ public class User
         this.yelpingSince = yelpingSince;
     }
 
+    @PersistenceCreator
     public User(String id, String userId, String name, int reviewCount, String yelpingSince, 
             int useful, int funny, int cool, List<String> elite, List<String> friends, 
             int fans, float averageStars, int complimentHot, int complimentMore, int complimentProfile, 
@@ -118,6 +120,26 @@ public class User
         this.complimentFunny = complimentFunny;
         this.complimentWriter = complimentWriter;
         this.complimentPhotos = complimentPhotos;
+    }
+
+    public String getId()
+    {
+        return id;
+    }
+
+    public String getUserId()
+    {
+        return userId;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public String getYelpingSince()
+    {
+        return yelpingSince;
     }
 
     public int getReviewCount()

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8"/>
+        <title></title>
+    </head>
+    <body>
+        
+        <div class="user-card" th:fragment="user_card(user_id, name, review_count, yelping_since, useful, funny, cool, fans, average_stars)">
+            <div class="user-card-info-section">
+                <img class="user-card-avatar" th:src="@{/images/user.png}" alt="User image"/>
+                <div>
+                    <p class="user-card-username" th:text="${name}"></p>
+                    <p class="user-card-additional-information-p">Yelping since:</p>
+                    <p class="user-card-additional-information-p" th:text="${yelping_since}"></p>
+                    <p class="user-card-additional-information-p" th:text="${'Reviews: ' + review_count}"></p>
+                </div>
+            </div>
+            <div class="user-card-tag-section">
+                <div style="background-color: #373737;" class="user-card-tag">
+                    <img th:src="@{/images/useful.png}" alt="Useful: "/>
+                    <p th:text="${useful}"></p>
+                </div>
+                <div style="background-color: #fc6a03;" class="user-card-tag">
+                    <img style="height: 70%;" th:src="@{/images/funny.png}" alt="Funny: "/>
+                    <p th:text="${funny}"></p>
+                </div>
+                <div style="background-color: #fa8072;" class="user-card-tag">
+                    <img style="height: 70%;" th:src="@{/images/cool.png}" alt="Cool: "/>
+                    <p th:text="${cool}"></p>
+                </div>
+                <div style="background-color: #7851a9;" class="user-card-tag">
+                    <img style="height: 80%;" th:src="@{/images/fans.png}" alt="Fans: "/>
+                    <p th:text="${fans}"></p>
+                </div>
+                <div style="background-color: #235888;" class="user-card-tag">
+                    <img style="height: 80%;" th:src="@{/images/star.png}" alt="Average stars: "/>
+                    <p th:text="${average_stars}"></p>
+                </div>
+            </div>
+            <div class="user-card-button-container">
+                <a th:href="@{/user-information/{id}(id=${user_id})}" class="user-card-button">Ver más</a>
+            </div>
+        </div>
+
+    </body>
+</html>
+

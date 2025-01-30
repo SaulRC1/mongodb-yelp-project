@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8"/>
-    <title>Negocios</title>
+    <title>Usuarios</title>
     <link rel="icon" th:href="@{/images/mongodb_icon.svg}" type="image/svg+xml"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -10,23 +10,26 @@
     <link rel="stylesheet" th:href="@{/css/general.css}"/>
     <link rel="stylesheet" th:href="@{/css/components/navigation_bar.css}"/>
     <link rel="stylesheet" th:href="@{/css/components/buttons.css}"/>
-    <link rel="stylesheet" th:href="@{/css/components/business_card.css}"/>
+    <link rel="stylesheet" th:href="@{/css/components/pagination_menu.css}"/>
+    <link rel="stylesheet" th:href="@{/css/components/user_card.css}"/>
 </head>
 <body>
     <div class="main-div">
         <div th:insert="~{components/navigation_bar :: navigation_bar}"></div>
         <div class="app-viewport">
+            
             <div class="section-title">
-                <p>LISTA DE NEGOCIOS</p>
+                <p>LISTA DE USUARIOS</p>
             </div>
-            <div class="section-content">
-                <div th:each="business : ${businesses}">
-                    <div th:replace="~{components/business_card :: business_card(${business.name}, ${business.city}, 
-                         ${business.state}, ${business.address}, ${business.postalCode}, ${business.stars})}"></div>
+            
+            <div class="modern-list-section">
+                <div th:each="user : ${users}">
+                    <div th:replace="~{components/user_card :: user_card(${user.userId}, ${user.name}, ${user.reviewCount}, 
+                         ${user.yelpingSince}, ${user.useful}, ${user.funny}, ${user.cool}, ${user.fans}, ${user.averageStars})}"></div>
                 </div>
             </div>
             
-            <div class="standard-list-section-pagination-menu">
+            <div class="modern-list-section-pagination-menu">
                 <div th:replace="~{components/pagination :: pagination_menu(${current_page}, ${page_count})}"></div>
             </div>
             
@@ -35,6 +38,8 @@
             </footer>
         </div>
     </div>
+    
+    <script th:src="@{/js/user_page.js}"></script>
 </body>
 </html>
 

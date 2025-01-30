@@ -6,7 +6,7 @@
     </head>
     <body>
         
-        <div class="tip-card" th:fragment="tip_card(author, business, text, compliment_count, date)">
+        <div class="tip-card" th:fragment="tip_card(author, business, text, compliment_count, date, formatted_date)">
             <img class="tip-card-img" th:src="@{/images/tip.png}" alt="Tip image"/>
             <div class="tip-card-content-section">
                 <div class="tip-card-header">
@@ -16,7 +16,8 @@
                         <img class="tip-card-compliment-img" th:src="@{/images/compliment.png}" alt="Compliments: "/>
                         <p th:text="${compliment_count}"></p>
                     </div>
-                    <p class="tip-card-date" th:text="${date}"></p>
+                    <p class="tip-card-date" th:text="${formatted_date}"></p>
+                    <p class="tip-card-date-hidden" th:text="${date}"></p>
                 </div>
                 <div class="tip-card-content">
                     <p th:text="${text}"></p>

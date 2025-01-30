@@ -4,6 +4,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.uhu.agi.mongodb.yelp.project.collection.Business;
 import com.uhu.agi.mongodb.yelp.project.collection.Tip;
+import com.uhu.agi.mongodb.yelp.project.collection.User;
 import com.uhu.agi.mongodb.yelp.project.data.TipListData;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -41,6 +42,11 @@ public class YelpDatabaseService
             System.out.println("Business: " + business.toString());
         }
         return result;
+    }
+    
+    public List<Business> getBusinessDataPage(int documentLimit)
+    {
+        return null;
     }
     
     public List<TipListData> getTipDataPage(LocalDateTime dateDelimiter, int documentLimit)
@@ -83,5 +89,120 @@ public class YelpDatabaseService
         }
         
         return tipList;
+    }
+    
+    public List<TipListData> getTipDataPageReverse(LocalDateTime dateDelimiter, int documentLimit)
+    {
+        List<TipListData> tipList = new ArrayList<>();
+        
+        Aggregation returnTipListAggregation = Aggregation.newAggregation( 
+                Aggregation.match(new Criteria()), 
+                Aggregation.sort(Sort.Direction.ASC, "date"),
+                Aggregation.match(Criteria.where("date").gt(Date.from(dateDelimiter.atZone(ZoneId.systemDefault()).toInstant()))),
+                Aggregation.limit(documentLimit),
+                Aggregation.sort(Sort.Direction.DESC, "date"),
+                Aggregation.lookup("user", "user_id", "user_id", "tip_user"),
+                Aggregation.unwind("tip_user"),
+                Aggregation.lookup("business", "business_id", "business_id", "tip_business"),
+                Aggregation.unwind("tip_business"),
+                Aggregation.project("text", "date", "compliment_count", "business_id", "user_id")
+                .and("tip_user.name").as("tip_author")
+                .and("tip_business.name").as("tip_business"));
+        
+        AggregationResults<Document> results = mongoTemplate.aggregate(returnTipListAggregation, "tip", Document.class);
+        
+        List<Document> documentList = results.getMappedResults();
+        
+        for (Document document : documentList)
+        {
+            Tip tip = new Tip(
+                    document.getObjectId("_id").toString(),
+                    document.getString("user_id"),
+                    document.getString("business_id"),
+                    document.getString("text"),
+                    document.getDate("date").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(),
+                    document.getInteger("compliment_count")
+            );
+
+            String tipAuthor = document.getString("tip_author");
+            String tipBusiness = document.getString("tip_business");
+
+            TipListData tipListData = new TipListData(tip, tipAuthor, tipBusiness);
+            tipList.add(tipListData);
+        }
+        
+        return tipList;
+    }
+    
+    public List<TipListData> getTipDataLastPage(int documentLimit)
+    {
+        List<TipListData> tipList = new ArrayList<>();
+        
+        Aggregation returnTipListAggregation = Aggregation.newAggregation( 
+                Aggregation.match(new Criteria()), 
+                Aggregation.sort(Sort.Direction.ASC, "date"),
+                Aggregation.limit(documentLimit),
+                Aggregation.lookup("user", "user_id", "user_id", "tip_user"),
+                Aggregation.unwind("tip_user"),
+                Aggregation.lookup("business", "business_id", "business_id", "tip_business"),
+                Aggregation.unwind("tip_business"),
+                Aggregation.project("text", "date", "compliment_count", "business_id", "user_id")
+                .and("tip_user.name").as("tip_author")
+                .and("tip_business.name").as("tip_business"));
+        
+        AggregationResults<Document> results = mongoTemplate.aggregate(returnTipListAggregation, "tip", Document.class);
+        
+        List<Document> documentList = results.getMappedResults();
+        
+        for (Document document : documentList)
+        {
+            Tip tip = new Tip(
+                    document.getObjectId("_id").toString(),
+                    document.getString("user_id"),
+                    document.getString("business_id"),
+                    document.getString("text"),
+                    document.getDate("date").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(),
+                    document.getInteger("compliment_count")
+            );
+
+            String tipAuthor = document.getString("tip_author");
+            String tipBusiness = document.getString("tip_business");
+
+            TipListData tipListData = new TipListData(tip, tipAuthor, tipBusiness);
+            tipList.add(tipListData);
+        }
+        
+        return tipList;
+    }
+    
+    public long getTipPageCount(int documentLimitPerPage)
+    {
+        long totalTipCount = mongoTemplate.count(new BasicQuery("{}"), "tip");
+        
+        long pageCount = (long) Math.ceil(((double) totalTipCount / (double) documentLimitPerPage));
+        
+        return pageCount;
+    }
+    
+    public List<User> getUserDataPage(long documentSkip, int documentLimit)
+    {
+        Aggregation returnTipListAggregation = Aggregation.newAggregation( 
+                Aggregation.match(new Criteria()), 
+                Aggregation.sort(Sort.Direction.ASC, "name"),
+                Aggregation.skip(documentSkip),
+                Aggregation.limit(documentLimit));
+        
+        AggregationResults<User> results = mongoTemplate.aggregate(returnTipListAggregation, "user", User.class);
+        
+        return results.getMappedResults();
+    }
+    
+    public long getUserPageCount(int documentLimitPerPage)
+    {
+        long totalUserCount = mongoTemplate.count(new BasicQuery("{}"), "user");
+        
+        long pageCount = (long) Math.ceil(((double) totalUserCount / (double) documentLimitPerPage));
+        
+        return pageCount;
     }
 }

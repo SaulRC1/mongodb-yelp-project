@@ -1,6 +1,8 @@
 package com.uhu.agi.mongodb.yelp.project.data;
 
 import com.uhu.agi.mongodb.yelp.project.collection.Tip;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -42,5 +44,14 @@ public class TipListData
     public String toString()
     {
         return "TipListData{" + "tip=" + tip + ", tipAuthor=" + tipAuthor + ", tipBusiness=" + tipBusiness + '}';
+    }
+    
+    public String getFormattedDate()
+    {
+        LocalDateTime date = tip.getDate();
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        
+        return date.format(formatter);
     }
 }

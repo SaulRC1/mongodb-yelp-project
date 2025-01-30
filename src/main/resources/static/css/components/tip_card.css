@@ -83,3 +83,8 @@
     margin: 0;
     color: white;
 }
+
+.tip-card-date-hidden
+{
+    display: none;
+}
