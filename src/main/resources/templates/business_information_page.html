@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Información de negocio</title>
+    <link rel="icon" th:href="@{/images/mongodb_icon.svg}" type="image/svg+xml"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/general.css}"/>
+    <link rel="stylesheet" th:href="@{/css/components/navigation_bar.css}"/>
+    <link rel="stylesheet" th:href="@{/css/components/buttons.css}"/>
+    <link rel="stylesheet" th:href="@{/css/components/review_card.css}"/>
+    <link rel="stylesheet" th:href="@{/css/components/pagination_menu.css}"/>
+    <link rel="stylesheet" th:href="@{/css/components/business_card.css}"/>
+    <link rel="stylesheet" th:href="@{/css/components/category_component.css}"/>
+</head>
+<body>
+    <div class="main-div">
+        <div th:insert="~{components/navigation_bar :: navigation_bar}"></div>
+        <div class="app-viewport">
+            
+            <div class="section-title">
+                <p>INFORMACIÓN DE NEGOCIO</p>
+            </div>
+            
+            <div class="business-information-section">
+                <div class="business-information-container">
+                    <div class="business-information-header">
+                        <img class="business-information-img" th:src="@{/images/business-icon.png}" alt="Business image"/>
+                        <div class="business-main-info-section">
+                            <p class="business-information-name-p" th:text="${business.name}"></p>
+                            <div style="background-color: #235888; height: 50px;" class="edit-review-valuation">
+                                <img style="height: 80%;" class="edit-review-card-valuation-img" th:src="@{/images/star.png}" alt="Stars: "/>
+                                <p th:text="${business.stars}"></p>
+                            </div>
+                            <p class="business-information-p" th:text="${business.city + ', ' + business.state}"></p>
+                            <p class="business-information-p" th:text="${business.address + ', ' + business.postalCode}"></p>
+                            <div class="business-information-location">
+                                <img th:src="@{/images/location.png}" alt="Location:"/>
+                                <p th:text="${business.latitude + ', ' + business.longitude}"></p>
+                            </div>
+                        </div>
+                        <div class="business-tag-section">
+                            <p class="business-tag-section-title">Categorias</p>
+                            <div class="business-tag-section-content">
+                                <div th:if="${business.categories != null}" th:each="category : ${business.categories}">
+                                    <div th:replace="~{components/category_component :: category_tag(${category})}"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div th:if="${business.hours != null}" class="business-schedule-section">
+                        <p class="business-tag-section-title" style="width: calc(100% - 20px); text-align: center;">Horario</p>
+                        <p th:if="${business.isOpen == 0}" class="business-schedule-open">Actualmente abierto</p>
+                        <p th:if="${business.isOpen == 1}" class="business-schedule-closed">Actualmente cerrado</p>
+                        <p class="business-schedule-day" th:if="${business.hours['Monday']}" th:text="${'Lunes: ' + business.hours['Monday']}"></p>
+                        <p class="business-schedule-day" th:if="${business.hours['Tuesday']}" th:text="${'Martes: ' + business.hours['Tuesday']}"></p>
+                        <p class="business-schedule-day" th:if="${business.hours['Wednesday']}" th:text="${'Miércoles: ' + business.hours['Wednesday']}"></p>
+                        <p class="business-schedule-day" th:if="${business.hours['Thursday']}" th:text="${'Jueves: ' + business.hours['Thursday']}"></p>
+                        <p class="business-schedule-day" th:if="${business.hours['Friday']}" th:text="${'Viernes: ' + business.hours['Friday']}"></p>
+                        <p class="business-schedule-day" th:if="${business.hours['Saturday']}" th:text="${'Sábado: ' + business.hours['Saturday']}"></p>
+                        <p class="business-schedule-day" th:if="${business.hours['Sunday']}" th:text="${'Domingo: ' + business.hours['Sunday']}"></p>
+                    </div>
+                    
+                    <div class="business-information-review-container">
+                        <p class="business-tag-section-title" style="width: calc(100% - 20px); text-align: center;">Reseñas</p>
+                        
+                        <div th:each="reviewData : ${reviews}">
+                            <div th:replace="~{components/review_card :: business_review_card(${reviewData.reviewAuthor}, 
+                                 ${reviewData.review.text}, ${reviewData.review.date}, 
+                                 ${reviewData.formattedDate}, ${reviewData.review.stars}, ${reviewData.review.useful}, 
+                                 ${reviewData.review.funny}, ${reviewData.review.cool}, ${reviewData.review.reviewId})}"></div>
+                        </div>
+                        
+                        <div th:if="${page_count > 1}" class="standard-list-section-pagination-menu">
+                            <div th:replace="~{components/pagination :: pagination_menu(${current_page}, ${page_count})}"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <footer>
+                <p class="footer-text">&copy; 2025 - Saúl Rodríguez Naranjo | Máster en Big Data y Cloud Computing (UHU)
+            </footer>
+        </div>
+    </div>
+    
+    <p id="current-business-id" style="display: none;" th:text="${business.businessId}"></p>
+    <script th:src="@{/js/business_information_page.js}"></script>
+</body>
+</html>
+

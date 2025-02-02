@@ -1,0 +1,21 @@
+.category-tag
+{
+    font-family: "Oxanium", serif;
+    font-optical-sizing: auto;
+    font-weight: normal;
+    font-style: normal;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    background-color: #536878;
+    width: fit-content;
+    height: 30px;
+    border-radius: 30px;
+    align-items: center;
+    color: white;
+}
+
+.category-tag p
+{
+    white-space: nowrap;
+}

@@ -1,16 +1,10 @@
 function moveToFirstPage()
 {
-    window.location.href = "/tips?page=1";
+    window.location.href = "/businesses?page=1";
 }
 
 function moveBackwardsPage()
-{
-    tipList = document.getElementsByClassName("tip-card");
-    
-    firstTip = tipList[0];
-    
-    date = firstTip.getElementsByClassName("tip-card-date-hidden")[0].textContent;
-    
+{    
     paginationPageDisplay = document.getElementsByClassName("pagination-page-display")[0].textContent;
     
     currentPage = paginationPageDisplay.split(" ")[0];
@@ -22,17 +16,11 @@ function moveBackwardsPage()
     
     backwardsPage = Number(currentPage) - 1;
     
-    window.location.href = "/tips?page=" + backwardsPage + "&date=" + date + "&backwards=true";
+    window.location.href = "/businesses?page=" + backwardsPage;
 }
 
 function moveForwardPage()
-{
-    tipList = document.getElementsByClassName("tip-card");
-    
-    lastTip = tipList[tipList.length - 1];
-    
-    date = lastTip.getElementsByClassName("tip-card-date-hidden")[0].textContent;
-    
+{    
     paginationPageDisplay = document.getElementsByClassName("pagination-page-display")[0].textContent;
     
     currentPage = paginationPageDisplay.split(" ")[0];
@@ -40,15 +28,15 @@ function moveForwardPage()
     
     forwardPage = Number(currentPage) + 1;
     
-    if(forwardPage >= lastPage)
+    if(forwardPage > lastPage)
     {
         return;
     }
     
-    window.location.href = "/tips?page=" + forwardPage + "&date=" + date + "&backwards=false";
+    window.location.href = "/businesses?page=" + forwardPage;
 }
 
 function moveToLastPage()
 {
-    window.location.href = "/tips?page=last";
+    window.location.href = "/businesses?page=last";
 }

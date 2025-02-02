@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8"/>
+        <title></title>
+    </head>
+    <body>
+        
+        <div class="category-tag" th:fragment="category_tag(categoryTagText)">
+            <p th:text="${'#' + categoryTagText}"></p>
+        </div>
+
+    </body>
+</html>
+

@@ -86,4 +86,16 @@
     font-weight: normal;
     font-style: normal;
     cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    background-color: white;
+    font-size: 14px;
+}
+
+.business-card-see-more-button:hover
+{
+    background-color: lightgray;
 }

@@ -6,7 +6,7 @@
     </head>
     <body>
         
-        <div class="business-card" th:fragment="business_card(business_name, city, state, address, postal_code, stars)">
+        <div class="business-card" th:fragment="business_card(business_id, business_name, city, state, address, postal_code, stars)">
             <div class="business-card-main-content">
                 <img class="business-card-main-img" th:src="@{/images/business-icon.png}" alt="Business image" />
                 <div class="business-card-information-div">
@@ -22,7 +22,7 @@
             <div class="business-card-footer-content">
                 <img class="business-card-img" th:src="@{/images/star.png}" alt="Star image"/>
                 <p class="business-card-star-rating-p" th:text="${stars}"></p>
-                <button class="business-card-see-more-button">Ver más</button>
+                <a class="business-card-see-more-button" th:href="@{/business-information/{id}(id=${business_id}, page=1)}">Ver más</a>
             </div>
         </div>
 
