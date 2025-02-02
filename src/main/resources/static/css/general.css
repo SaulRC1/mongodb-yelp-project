@@ -487,3 +487,17 @@ footer
     padding: 20px;
     gap: 20px;
 }
+
+.welcome-section
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: calc(100% - 40px);
+    color: white;
+    font-weight: 600;
+    padding: 20px;
+    font-size: 18px;
+}

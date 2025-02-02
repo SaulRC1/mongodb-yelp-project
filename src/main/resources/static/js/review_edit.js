@@ -24,7 +24,7 @@ function saveReview()
 
 function cancel()
 {
-    window.location.href = "/reviews?page=";
+    window.location.href = "/reviews?page=1";
 }
 
 
