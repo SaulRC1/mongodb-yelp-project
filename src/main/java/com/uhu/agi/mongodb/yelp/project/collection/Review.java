@@ -136,4 +136,33 @@ public class Review
     {
         this.date = date;
     }
+
+    public String getId()
+    {
+        return id;
+    }
+
+    public String getReviewId()
+    {
+        return reviewId;
+    }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Review{");
+        sb.append("id=").append(id);
+        sb.append(", reviewId=").append(reviewId);
+        sb.append(", userId=").append(userId);
+        sb.append(", businessId=").append(businessId);
+        sb.append(", stars=").append(stars);
+        sb.append(", useful=").append(useful);
+        sb.append(", funny=").append(funny);
+        sb.append(", cool=").append(cool);
+        sb.append(", text=").append(text);
+        sb.append(", date=").append(date);
+        sb.append('}');
+        return sb.toString();
+    }
 }

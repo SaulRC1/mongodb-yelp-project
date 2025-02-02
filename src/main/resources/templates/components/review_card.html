@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8"/>
+        <title></title>
+    </head>
+    <body>
+        
+        <div class="review-card" th:fragment="review_card(author, business, text, date, formatted_date, stars, useful, funny, cool, review_id)">
+            <img class="review-card-img" th:src="@{/images/review.png}" alt="Review image"/>
+            <div class="review-card-content-section">
+                <div class="review-card-header">
+                    <p class="review-card-p" th:text="${'From: ' + author}"></p>
+                    <p class="review-card-p" th:text="${'To: ' + business}"></p>
+                    <p class="review-card-date" th:text="${formatted_date}"></p>
+                    <p class="review-card-date-hidden" th:text="${date}"></p>
+                </div>
+                <div class="review-valuation-section">
+                    <div style="background-color: #235888;" class="review-valuation">
+                        <img style="height: 80%;" class="review-card-valuation-img" th:src="@{/images/star.png}" alt="Stars: "/>
+                        <p th:text="${stars}"></p>
+                    </div>
+                    <div style="background-color: #373737;" class="review-valuation">
+                        <img style="height: 80%;" class="review-card-valuation-img" th:src="@{/images/useful.png}" alt="Useful: "/>
+                        <p th:text="${useful}"></p>
+                    </div>
+                    <div style="background-color: #fc6a03;" class="review-valuation">
+                        <img style="height: 75%;" class="review-card-valuation-img" th:src="@{/images/funny.png}" alt="Funny: "/>
+                        <p th:text="${funny}"></p>
+                    </div>
+                    <div style="background-color: #fa8072;" class="review-valuation">
+                        <img style="height: 75%;" class="review-card-valuation-img" th:src="@{/images/cool.png}" alt="Cool: "/>
+                        <p th:text="${cool}"></p>
+                    </div>
+                </div>
+                <div class="review-card-content">
+                    <p th:text="${text}"></p>
+                </div>
+                
+                <div class="review-card-button-container">
+                    <a th:href="@{/edit-review/{id}(id=${review_id})}" class="review-card-button">Editar</a>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>
+

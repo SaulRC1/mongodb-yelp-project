@@ -64,3 +64,57 @@
 {
     background-color: #245c70;
 }
+
+.anchor_button_green
+{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    font-family: "Oxanium", serif;
+    font-optical-sizing: auto;
+    font-weight: bold;
+    font-style: normal;
+    background: rgba(0, 237, 100, 0.5);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(4.7px);
+    -webkit-backdrop-filter: blur(4.7px);
+    cursor: pointer;
+    border: none;
+}
+
+.anchor_button_green:hover
+{
+    background-color: #245c70;
+}
+
+.search-button
+{
+    height: 30px;
+    width: 100px;
+}
+
+.white-button
+{
+    border: none;
+    box-shadow: 5px 10px 15px rgba(0, 0, 0, 0.3);
+    font-family: "Oxanium", serif;
+    font-optical-sizing: auto;
+    font-weight: normal;
+    font-style: normal;
+    cursor: pointer;
+    background-color: white;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-size: 14px;
+}
+
+.white-button:hover
+{
+    background-color: lightgray;
+}

@@ -1,0 +1,155 @@
+.review-card
+{
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.review-card-header
+{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    background-color: wheat;
+    margin: 10px 10px 10px 0px;
+    border-radius: 10px;
+    width: fit-content;
+    padding: 0px 10px 0px 10px;
+}
+
+.review-card-content
+{
+    background: whitesmoke;
+    margin-bottom: 10px;
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 10px;
+}
+
+.review-card-img
+{
+    width: 50px;
+    height: auto;
+    margin: 15px;
+}
+
+.review-card-content-section
+{
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 50px - 15px - 15px);
+    height: auto;
+}
+
+.review-card-compliment-img
+{
+    height: 20px;
+    width: auto;
+}
+
+.review-card-p
+{
+    font-weight: 600;
+}
+
+.review-card-date
+{
+    font-style: italic;
+}
+
+.review-compliment
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background-color: #FF6961;
+    border-radius: 20px;
+    padding: 5px 10px 5px 10px;
+}
+
+.review-compliment p
+{
+    margin: 0;
+    color: white;
+}
+
+.review-card-date-hidden
+{
+    display: none;
+}
+
+.review-valuation-section
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.review-valuation
+{
+    width: 100px;
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: lightcoral;
+    color: white;
+    border-radius: 20px;
+    gap: 10px;
+}
+
+.review-card-valuation-img
+{
+    height: 90%;
+    width: auto;
+    margin-left: 10px;
+}
+
+.review-card-button
+{
+    height: 30px;
+    width: 150px;
+    border: none;
+    box-shadow: 5px 10px 15px rgba(0, 0, 0, 0.3);
+    font-family: "Oxanium", serif;
+    font-optical-sizing: auto;
+    font-weight: normal;
+    font-style: normal;
+    cursor: pointer;
+    background-color: white;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-size: 14px;
+}
+
+.review-card-button:hover
+{
+    background-color: lightgray;
+}
+
+.review-card-button-container
+{
+    display: flex;
+    width: 100%;
+    height: 50px;
+    justify-content: flex-start;
+    align-items: center;
+}

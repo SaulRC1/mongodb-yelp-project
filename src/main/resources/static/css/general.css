@@ -137,3 +137,188 @@ footer
     width: 100%;
     height: 50px;
 }
+
+.user-information-section
+{
+    width: calc(100% - 20px);
+    height: calc(100% - 50px - 30px);
+    display: flex;
+    overflow: auto;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.user-information-container
+{
+    background: rgba(11, 220, 132, 0.64);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(7.6px);
+    -webkit-backdrop-filter: blur(7.6px);
+    border: 1px solid rgba(11, 220, 132, 0.46);
+}
+
+.search-field-container
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    height: 50px;
+}
+
+.search-field
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: fit-content;
+    gap: 10px;
+}
+
+.search-field-text-input 
+{
+    height: 30px;
+    width: 400px;
+    font-family: "Oxanium", serif;
+    font-optical-sizing: auto;
+    font-weight: normal;
+    font-style: normal;
+}
+
+.edit-review-section
+{
+    width: calc(100% - 20px);
+    height: calc(100% - 50px - 30px);
+    display: flex;
+    overflow: auto;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.edit-review-container
+{
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: auto;
+}
+
+.edit-review-information-container
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.edit-review-information-header
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.edit-review-header
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    background-color: wheat;
+    margin: 10px 10px 10px 0px;
+    border-radius: 10px;
+    width: fit-content;
+    padding: 0px 10px 0px 10px;
+}
+
+.edit-review-valuation-container
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.edit-review-valuation
+{
+    width: 100px;
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: lightcoral;
+    color: white;
+    border-radius: 20px;
+    gap: 10px;
+}
+
+.edit-review-card-valuation-img
+{
+    height: 90%;
+    width: auto;
+    margin-left: 10px;
+}
+
+.edit-review-img
+{
+    width: 200px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.edit-review-header-p
+{
+    font-weight: 600;
+}
+
+.edit-review-header-date
+{
+    font-style: italic;
+}
+
+.edit-review-text-area
+{
+    height: calc(100% - 200px - 75px);
+    margin-left: 20px;
+    margin-right: 20px;
+    resize: none; 
+    overflow: auto; 
+    word-wrap: break-word; 
+    white-space: pre-wrap;
+    font-family: "Oxanium", serif;
+    font-optical-sizing: auto;
+    font-weight: normal;
+    font-style: normal;
+}
+
+.edit-review-buttons-container
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 75px;
+    width: 100%;
+    gap: 20px;
+}
+
+.edit-review-buttons-container button
+{
+    height: 35px;
+    width: 150px;
+}

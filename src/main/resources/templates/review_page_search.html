@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Reseñas</title>
+    <link rel="icon" th:href="@{/images/mongodb_icon.svg}" type="image/svg+xml"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/general.css}"/>
+    <link rel="stylesheet" th:href="@{/css/components/navigation_bar.css}"/>
+    <link rel="stylesheet" th:href="@{/css/components/buttons.css}"/>
+    <link rel="stylesheet" th:href="@{/css/components/review_card.css}"/>
+    <link rel="stylesheet" th:href="@{/css/components/pagination_menu.css}"/>
+</head>
+<body>
+    <div class="main-div">
+        <div th:insert="~{components/navigation_bar :: navigation_bar}"></div>
+        <div class="app-viewport">
+            
+            <div class="section-title">
+                <p>LISTADO DE RESEÑAS</p>
+            </div>
+            
+            <div class="search-field-container">
+                <div class="search-field">
+                    <input class="search-field-text-input" type="text"/>
+                    <button onClick="searchReview()" class="anchor_button_green search-button">Búscar</button>
+                </div>
+            </div>
+            
+            <div class="standard-list-section">
+                <div th:each="reviewData : ${reviews}">
+                    <div th:replace="~{components/review_card :: review_card(${reviewData.reviewAuthor}, 
+                         ${reviewData.reviewBusiness}, ${reviewData.review.text}, ${reviewData.review.date}, 
+                         ${reviewData.formattedDate}, ${reviewData.review.stars}, ${reviewData.review.useful}, 
+                         ${reviewData.review.funny}, ${reviewData.review.cool}, ${reviewData.review.reviewId})}"></div>
+                </div>
+            </div>
+            
+            <div class="standard-list-section-pagination-menu">
+                <div th:replace="~{components/pagination :: pagination_menu(${current_page}, ${page_count})}"></div>
+            </div>
+            
+            <footer>
+                <p class="footer-text">&copy; 2025 - Saúl Rodríguez Naranjo | Máster en Big Data y Cloud Computing (UHU)
+            </footer>
+        </div>
+    </div>
+    
+    <p id="used-search-text" style="display: none;" th:text="${usedSearchText}"></p>
+    <script th:src="@{/js/review_page_search.js}"></script>
+</body>
+</html>
+

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Editar reseñas</title>
+    <link rel="icon" th:href="@{/images/mongodb_icon.svg}" type="image/svg+xml"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/general.css}"/>
+    <link rel="stylesheet" th:href="@{/css/components/navigation_bar.css}"/>
+    <link rel="stylesheet" th:href="@{/css/components/buttons.css}"/>
+    <link rel="stylesheet" th:href="@{/css/components/review_card.css}"/>
+    <link rel="stylesheet" th:href="@{/css/components/pagination_menu.css}"/>
+</head>
+<body>
+    <div class="main-div">
+        <div th:insert="~{components/navigation_bar :: navigation_bar}"></div>
+        <div class="app-viewport">
+            
+            <div class="section-title">
+                <p>EDITAR RESEÑA</p>
+            </div>
+            
+            <div class="edit-review-section">
+                <div class="edit-review-container">
+                    <div class="edit-review-information-container">
+                        <img class="edit-review-img" th:src="@{/images/review.png}" alt="Review image"/>
+                        <div class="edit-review-information-header">
+                            <div class="edit-review-header">
+                                <p class="edit-review-header-p" th:text="${'From: ' + reviewData.reviewAuthor}"></p>
+                                <p class="edit-review-header-p" th:text="${'To: ' + reviewData.reviewBusiness}"></p>
+                                <p class="edit-review-header-date" th:text="${reviewData.formattedDate}"></p>
+                            </div>
+                            <div class="edit-review-valuation-container">
+                                <div style="background-color: #235888;" class="edit-review-valuation">
+                                    <img style="height: 80%;" class="edit-review-card-valuation-img" th:src="@{/images/star.png}" alt="Stars: "/>
+                                    <p th:text="${reviewData.review.stars}"></p>
+                                </div>
+                                <div style="background-color: #373737;" class="edit-review-valuation">
+                                    <img style="height: 80%;" class="edit-review-card-valuation-img" th:src="@{/images/useful.png}" alt="Useful: "/>
+                                    <p th:text="${reviewData.review.useful}"></p>
+                                </div>
+                                <div style="background-color: #fc6a03;" class="edit-review-valuation">
+                                    <img style="height: 75%;" class="edit-review-card-valuation-img" th:src="@{/images/funny.png}" alt="Funny: "/>
+                                    <p th:text="${reviewData.review.funny}"></p>
+                                </div>
+                                <div style="background-color: #fa8072;" class="edit-review-valuation">
+                                    <img style="height: 75%;" class="edit-review-card-valuation-img" th:src="@{/images/cool.png}" alt="Cool: "/>
+                                    <p th:text="${reviewData.review.cool}"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <textarea class="edit-review-text-area" th:text="${reviewData.review.text}">
+                        
+                    </textarea>
+                    <div class="edit-review-buttons-container">
+                        <button class="white-button" onClick="saveReview()">Guardar</button>
+                        <button class="white-button" onClick="cancel()">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+            
+            <footer>
+                <p class="footer-text">&copy; 2025 - Saúl Rodríguez Naranjo | Máster en Big Data y Cloud Computing (UHU)
+            </footer>
+        </div>
+    </div>
+    
+    <p id="current-review-id" style="display: none;" th:text="${reviewData.review.reviewId}"></p>
+    <script th:src="@{/js/review_edit.js}"></script>
+</body>
+</html>
+

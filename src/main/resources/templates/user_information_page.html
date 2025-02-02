@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8"/>
-    <title>Usuarios</title>
+    <title>Información de usuario</title>
     <link rel="icon" th:href="@{/images/mongodb_icon.svg}" type="image/svg+xml"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,18 +19,25 @@
         <div class="app-viewport">
             
             <div class="section-title">
-                <p>LISTA DE USUARIOS</p>
+                <p>INFORMACIÓN DE USUARIO</p>
             </div>
             
-            <div class="modern-list-section">
-                <div th:each="user : ${users}">
-                    <div th:replace="~{components/user_card :: user_card(${user.userId}, ${user.name}, ${user.reviewCount}, 
-                         ${user.yelpingSince}, ${user.useful}, ${user.funny}, ${user.cool}, ${user.fans}, ${user.averageStars})}"></div>
+            <div class="user-information-section">
+                <div class="user-information-container">
+                    <div>
+                        <img th:src="@{/images/useful.png}"/>
+                        <div>
+
+                        </div>
+                        <div>
+
+                        </div>
+                    </div>
+                    
+                    <div>
+                        
+                    </div>
                 </div>
-            </div>
-            
-            <div class="modern-list-section-pagination-menu">
-                <div th:replace="~{components/pagination :: pagination_menu(${current_page}, ${page_count})}"></div>
             </div>
             
             <footer>

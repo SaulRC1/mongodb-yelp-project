@@ -28,7 +28,7 @@ function moveForwardPage()
     
     forwardPage = Number(currentPage) + 1;
     
-    if(forwardPage >= lastPage)
+    if(forwardPage > lastPage)
     {
         return;
     }
