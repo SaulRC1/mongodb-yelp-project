@@ -10,6 +10,8 @@ import com.uhu.agi.mongodb.yelp.project.collection.User;
 import com.uhu.agi.mongodb.yelp.project.data.BusinessReviewData;
 import com.uhu.agi.mongodb.yelp.project.data.ReviewListData;
 import com.uhu.agi.mongodb.yelp.project.data.TipListData;
+import com.uhu.agi.mongodb.yelp.project.data.UserInformation;
+import com.uhu.agi.mongodb.yelp.project.data.UserReview;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -20,8 +22,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationPipeline;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.aggregation.ComparisonOperators;
 import org.springframework.data.mongodb.core.aggregation.LookupOperation;
+import org.springframework.data.mongodb.core.aggregation.VariableOperators;
 import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -616,6 +621,145 @@ public class YelpDatabaseService
         Query query = new Query();
         
         query.addCriteria(Criteria.where("business_id").is(businessId));
+        
+        long pageCount = (long) Math.ceil(((double) mongoTemplate.count(query, "review") / (double) documentLimitPerPage));
+        
+        return pageCount;
+    }
+    
+    public User getUserByUserId(String userId)
+    {        
+        Aggregation returnReviewListAggregation = Aggregation.newAggregation( 
+                Aggregation.match(Criteria.where("user_id").is(userId)));
+        
+        AggregationResults<User> results = mongoTemplate.aggregate(returnReviewListAggregation, "user", User.class);
+        
+        return results.getUniqueMappedResult();
+    }
+    
+    public List<UserReview> getReviewPageForUser(String userId, LocalDateTime dateDelimiter, int documentLimit)
+    {
+        List<UserReview> reviewList = new ArrayList<>();
+        
+        Aggregation returnReviewListAggregation = Aggregation.newAggregation( 
+                Aggregation.match(Criteria.where("user_id").is(userId)), 
+                Aggregation.sort(Sort.Direction.DESC, "date"),
+                Aggregation.match(Criteria.where("date").lt(Date.from(dateDelimiter.atZone(ZoneId.systemDefault()).toInstant()))),
+                Aggregation.limit(documentLimit),
+                Aggregation.lookup("business", "business_id", "business_id", "review_business"),
+                Aggregation.unwind("review_business"),
+                Aggregation.project("review_id", "user_id", "business_id", "stars", "useful", "funny", 
+                        "cool", "text", "date")
+                .and("review_business.name").as("review_business_to"));
+        
+        AggregationResults<Document> results = mongoTemplate.aggregate(returnReviewListAggregation, "review", Document.class);
+        
+        List<Document> documentList = results.getMappedResults();
+        
+        for (Document document : documentList)
+        {
+            Review review = new Review(
+                    document.getObjectId("_id").toString(), 
+                    document.getString("review_id"), document.getString("user_id"), 
+                    document.getString("business_id"), document.getInteger("stars"), 
+                    document.getInteger("useful"), document.getInteger("funny"), 
+                    document.getInteger("cool"), document.getString("text"), 
+                    document.getDate("date").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+                            
+            String reviewBusiness = document.getString("review_business_to");
+
+            UserReview userReview = new UserReview(review, reviewBusiness);
+            
+            reviewList.add(userReview);
+        }
+        
+        return reviewList;
+    }
+    
+    public List<UserReview> getReviewPageForUserReverse(String userId, LocalDateTime dateDelimiter, int documentLimit)
+    {
+        List<UserReview> reviewList = new ArrayList<>();
+        
+        Aggregation returnReviewListAggregation = Aggregation.newAggregation( 
+                Aggregation.match(Criteria.where("user_id").is(userId)), 
+                Aggregation.sort(Sort.Direction.ASC, "date"),
+                Aggregation.match(Criteria.where("date").gt(Date.from(dateDelimiter.atZone(ZoneId.systemDefault()).toInstant()))),
+                Aggregation.limit(documentLimit),
+                Aggregation.sort(Sort.Direction.DESC, "date"),
+                Aggregation.lookup("business", "business_id", "business_id", "review_business"),
+                Aggregation.unwind("review_business"),
+                Aggregation.project("review_id", "user_id", "business_id", "stars", "useful", "funny", 
+                        "cool", "text", "date")
+                .and("review_business.name").as("review_business_to"));
+        
+        AggregationResults<Document> results = mongoTemplate.aggregate(returnReviewListAggregation, "review", Document.class);
+        
+        List<Document> documentList = results.getMappedResults();
+        
+        for (Document document : documentList)
+        {
+            Review review = new Review(
+                    document.getObjectId("_id").toString(), 
+                    document.getString("review_id"), document.getString("user_id"), 
+                    document.getString("business_id"), document.getInteger("stars"), 
+                    document.getInteger("useful"), document.getInteger("funny"), 
+                    document.getInteger("cool"), document.getString("text"), 
+                    document.getDate("date").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+                            
+            String reviewBusiness = document.getString("review_business_to");
+
+            UserReview userReview = new UserReview(review, reviewBusiness);
+            
+            reviewList.add(userReview);
+        }
+        
+        return reviewList;
+    }
+    
+    public List<UserReview> getReviewLastPageForUser(String userId, int documentLimit)
+    {
+        List<UserReview> reviewList = new ArrayList<>();
+        
+        Aggregation returnReviewListAggregation = Aggregation.newAggregation( 
+                Aggregation.match(Criteria.where("user_id").is(userId)), 
+                Aggregation.sort(Sort.Direction.ASC, "date"),
+                Aggregation.limit(documentLimit),
+                Aggregation.sort(Sort.Direction.DESC, "date"),
+                Aggregation.lookup("business", "business_id", "business_id", "review_business"),
+                Aggregation.unwind("review_business"),
+                Aggregation.project("review_id", "user_id", "business_id", "stars", "useful", "funny", 
+                        "cool", "text", "date")
+                .and("review_business.name").as("review_business_to"));
+        
+        AggregationResults<Document> results = mongoTemplate.aggregate(returnReviewListAggregation, "review", Document.class);
+        
+        List<Document> documentList = results.getMappedResults();
+        
+        for (Document document : documentList)
+        {
+            Review review = new Review(
+                    document.getObjectId("_id").toString(), 
+                    document.getString("review_id"), document.getString("user_id"), 
+                    document.getString("business_id"), document.getInteger("stars"), 
+                    document.getInteger("useful"), document.getInteger("funny"), 
+                    document.getInteger("cool"), document.getString("text"), 
+                    document.getDate("date").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+                            
+            String reviewBusiness = document.getString("review_business_to");
+
+            UserReview userReview = new UserReview(review, reviewBusiness);
+            
+            reviewList.add(userReview);
+        }
+        
+        return reviewList;
+    }
+    
+    public long getReviewPageCountForUser(String userId, int documentLimitPerPage)
+    {
+        Query query = new Query();
+        
+        query.addCriteria(Criteria.where("user_id").is(userId));
         
         long pageCount = (long) Math.ceil(((double) mongoTemplate.count(query, "review") / (double) documentLimitPerPage));
         

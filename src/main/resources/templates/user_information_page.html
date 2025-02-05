@@ -12,6 +12,8 @@
     <link rel="stylesheet" th:href="@{/css/components/buttons.css}"/>
     <link rel="stylesheet" th:href="@{/css/components/pagination_menu.css}"/>
     <link rel="stylesheet" th:href="@{/css/components/user_card.css}"/>
+    <link rel="stylesheet" th:href="@{/css/components/category_component.css}"/>
+    <link rel="stylesheet" th:href="@{/css/components/review_card.css}"/>
 </head>
 <body>
     <div class="main-div">
@@ -24,18 +26,71 @@
             
             <div class="user-information-section">
                 <div class="user-information-container">
-                    <div>
-                        <img th:src="@{/images/useful.png}"/>
-                        <div>
-
+                    <div class="user-information-main">
+                        <div class="user-information-important-info">
+                            <img th:src="@{/images/user.png}"/>
+                            <p class="user-information-username" th:text="${user.name}"></p>
+                            <div class="user-information-main-compliments">
+                                <div style="background-color: #235888;" class="user-card-tag">
+                                    <img style="height: 80%;" th:src="@{/images/star.png}" alt="Average stars: "/>
+                                    <p th:text="${user.averageStars}"></p>
+                                </div>
+                                <div style="background-color: #7851a9;" class="user-card-tag">
+                                    <img style="height: 80%;" th:src="@{/images/fans.png}" alt="Fans: "/>
+                                    <p th:text="${user.fans}"></p>
+                                </div>
+                                <div style="background-color: #373737;" class="user-card-tag">
+                                    <img th:src="@{/images/useful.png}" alt="Useful: "/>
+                                    <p th:text="${user.useful}"></p>
+                                </div>
+                                <div style="background-color: #fc6a03;" class="user-card-tag">
+                                    <img style="height: 70%;" th:src="@{/images/funny.png}" alt="Funny: "/>
+                                    <p th:text="${user.funny}"></p>
+                                </div>
+                                <div style="background-color: #fa8072;" class="user-card-tag">
+                                    <img style="height: 70%;" th:src="@{/images/cool.png}" alt="Cool: "/>
+                                    <p th:text="${user.cool}"></p>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-
+                        <div class="user-information-details">
+                            <p class="user-information-details-p" th:text="${'Registrado desde: ' + user.yelpingSince}"></p>
+                            <p th:if="${user.formattedEliteYears != null}" class="user-information-details-p" th:text="${'Años en los que ha sido Elite: ' + user.formattedEliteYears}"></p>
+                            <p class="user-information-details-p" th:text="${'Reseñas: ' + user.reviewCount}"></p>
+                            
+                            <div class="user-information-compliments">
+                                <div th:replace="~{components/category_component :: category_tag(${'Hot: ' + user.complimentHot})}"></div>
+                                <div th:replace="~{components/category_component :: category_tag(${'More: ' + user.complimentMore})}"></div>
+                                <div th:replace="~{components/category_component :: category_tag(${'Profile: ' +  user.complimentProfile})}"></div>
+                                <div th:replace="~{components/category_component :: category_tag(${'Cute: ' +  user.complimentCute})}"></div>
+                                <div th:replace="~{components/category_component :: category_tag(${'List: ' +  user.complimentList})}"></div>
+                                <div th:replace="~{components/category_component :: category_tag(${'Note: ' +  user.complimentNote})}"></div>
+                                <div th:replace="~{components/category_component :: category_tag(${'Plain: ' +  user.complimentPlain})}"></div>
+                                <div th:replace="~{components/category_component :: category_tag(${'Funny: ' +  user.complimentFunny})}"></div>
+                                <div th:replace="~{components/category_component :: category_tag(${'Writer: ' +  user.complimentWriter})}"></div>
+                                <div th:replace="~{components/category_component :: category_tag(${'Photos: ' +  user.complimentPhotos})}"></div>
+                            </div>
                         </div>
                     </div>
-                    
-                    <div>
-                        
+                    <div class="user-information-reviews-and-friends">
+                        <div class="user-information-reviews-and-friends-buttons">
+                            <button th:if="${reviews != null}" class="user-information-reviews-and-friends-buttons-button">RESEÑAS</button>
+                            <button th:if="${reviews == null}" class="user-information-reviews-and-friends-buttons-button-disabled">RESEÑAS</button>
+                            <button th:if="${friends != null}" class="user-information-reviews-and-friends-buttons-button">AMIGOS</button>
+                            <button th:if="${friends == null}" class="user-information-reviews-and-friends-buttons-button-disabled">AMIGOS</button>
+                        </div>
+                        <div class="user-information-reviews">
+                            <div th:each="reviewData : ${reviews}">
+                                <div th:replace="~{components/review_card :: user_review_card(${reviewData.reviewBusiness}, 
+                                     ${reviewData.review.text}, ${reviewData.review.date}, 
+                                     ${reviewData.formattedDate}, ${reviewData.review.stars}, ${reviewData.review.useful}, 
+                                     ${reviewData.review.funny}, ${reviewData.review.cool}, ${reviewData.review.reviewId})}"></div>
+                            </div>
+
+                            <div th:if="${page_count > 1}" class="standard-list-section-pagination-menu">
+                                <div th:replace="~{components/pagination :: pagination_menu(${current_page}, ${page_count})}"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -46,7 +101,7 @@
         </div>
     </div>
     
-    <script th:src="@{/js/user_page.js}"></script>
+    <script th:src="@{/js/user_information_page.js}"></script>
 </body>
 </html>
 

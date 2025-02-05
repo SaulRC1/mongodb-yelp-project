@@ -331,4 +331,29 @@ public class User
     {
         this.complimentPhotos = complimentPhotos;
     }
+    
+    public String getFormattedEliteYears()
+    {
+        if(elite == null || elite.isEmpty())
+        {
+            return null;
+        }
+        
+        String formattedEliteYears = "";
+        
+        for (String eliteYear : elite)
+        {
+            if(!eliteYear.isBlank())
+            {
+                formattedEliteYears += eliteYear + ", ";
+            }
+        }
+        
+        if(formattedEliteYears.isBlank())
+        {
+            return null;
+        }
+        
+        return formattedEliteYears;
+    }
 }
